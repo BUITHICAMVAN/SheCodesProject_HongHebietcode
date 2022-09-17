@@ -1,13 +1,12 @@
-import './App.css';
-import {collection, getDocs} from 'firebase/firestore'
-import {db} from './firebase'
-
+import "./App.css";
+import UserSearch from "./components/UserSearch/UserSearch";
+import Booking from "./components/Booking/Booking.js";
 function App() {
   
-
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      <Booking />
+      <UserSearch />
     </div>
   );
 }
