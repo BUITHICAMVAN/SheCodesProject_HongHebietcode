@@ -6,16 +6,12 @@ import {db} from '../firebase.js'
 const BookingPage = () => {
 
     const userData = React.useRef([]);
-    const [filteredUserData, setFilteredUserData] = React.useState([]);
 
-    const tagData = React.useRef([]);
+    const [tagData, setTagData] = React.useState([]);
     const [filteredTagData, setFilteredTagData] = React.useState([]);
 
     const locationData = React.useRef([]);
     const [filteredLocationData, setFilteredLocationData] = React.useState([]);
-
-    const [selectedTag, setSelectedTag] = React.useState("#englishtranslation");
-    const [selectedLocation, setSelectedLocation] = React.useState("District 1");
 
     const getUserData = () => {
         const userDataCollection = collection(db, 'users');
@@ -38,7 +34,7 @@ const BookingPage = () => {
                 data: doc.data(),
                 id: doc.id,
             }))
-            tagData.current = tags;
+            setTagData(tags);
         })
         .catch(error => console.log(error.message))
     }
@@ -58,28 +54,39 @@ const BookingPage = () => {
 
     React.useEffect(() => {
         getUserData();
-        setFilteredUserData(userData);
         getTagData();
         setFilteredTagData(tagData);
         getLocationData();
         setFilteredLocationData(locationData);
     },[]);
 
-    const matchDriver = () => {
-        console.log(selectedTag);
-        console.log(selectedLocation);
-        console.log(userData);
+    const matchDriver = (selectedTag, selectedLocation, userArray) => {
+        selectedTag = "#englishtranslation";
+        selectedLocation = "District 1";
 
-        setFilteredUserData(() => [
-            ...userData.current.filter((x) => x.data.role === 'driver' && x.data.available && x.data.tags === tagData && x.data.location === locationData),
-        ]);
-        console.log(filteredUserData);
+        userArray = [
+            {
+                role: 'driver',
+                available: true,
+                tags: ['#englishtranslation', 'swimming'],
+                location: 'District 1'
+            },
+            {
+                role: 'user',
+                available: false,
+                tags: null,
+                location: 'District 2'
+            }
+        ]
+        console.log(userArray)
+        let filteredUserArray = [];
+        filteredUserArray = userArray.filter(x => (x.role === 'driver' && x.available && x.tags.includes(selectedTag) && x.location === selectedLocation))
+        console.log(filteredUserArray)
     }
 
     return (
         <>
-            <Booking title = "Booking Info" />
-            <button onClick={() => matchDriver()}>ABC</button>
+            <Booking title = "Booking Info" tags = {tagData} matching = {matchDriver}/>
         </>
     )
 }

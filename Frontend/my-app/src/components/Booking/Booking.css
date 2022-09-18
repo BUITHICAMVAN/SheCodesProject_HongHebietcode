@@ -10,6 +10,7 @@ body {
     color: white;
     font-size: 24px;
     font-weight: 700;
+    padding-right: 35%;
 }
 
 .booking-container .booking-input {
@@ -17,6 +18,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    padding-left: 3%;
 }
 
 .booking-container .booking .input-item {
