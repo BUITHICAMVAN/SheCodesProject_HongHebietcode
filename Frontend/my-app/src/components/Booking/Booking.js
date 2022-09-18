@@ -114,11 +114,6 @@ export default function Booking(props) {
           <button type="submit">Confirm</button>
         </form>
       </div>
-      {/* <div className="items">
-        {items.map((item, index) => (
-          <Item key={index} item={item} onComplete={onCompleteHandler} />
-        ))}
-      </div> */}
     </div>
   );
 }
