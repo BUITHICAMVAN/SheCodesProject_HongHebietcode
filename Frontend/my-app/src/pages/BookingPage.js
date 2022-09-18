@@ -63,7 +63,7 @@ const BookingPage = () => {
         setFilteredTagData(tagData);
         getLocationData();
         setFilteredLocationData(locationData);
-    },[])
+    },[]);
 
     const matchDriver = () => {
         console.log(selectedTag);
@@ -73,7 +73,7 @@ const BookingPage = () => {
         setFilteredUserData(() => [
             ...userData.current.filter((x) => x.data.role === 'driver' && x.data.available && x.data.tags === tagData && x.data.location === locationData),
         ]);
-        console.log(filteredUserData)
+        console.log(filteredUserData);
     }
 
     return (
